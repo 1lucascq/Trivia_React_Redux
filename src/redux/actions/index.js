@@ -1,3 +1,4 @@
+import getFetchURL from '../../helpers/getFetchURL';
 import shuffle from '../../helpers/shuffleArray';
 
 export const LOGIN = 'LOGIN';
@@ -8,6 +9,8 @@ export const LOADING = 'LOADING';
 export const PLAYER = 'PLAYER';
 export const RESET_STATE = 'RESET_STATE';
 export const RESET_PLAYER = 'RESET_PLAYER';
+export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
+export const CONFIG_OPTIONS = 'CONFIG_OPTIONS';
 
 export const resetState = () => ({
   type: RESET_STATE,
@@ -47,16 +50,26 @@ export const player = (payload) => ({
   payload,
 });
 
+export const fetchCategoriesAction = (payload) => ({
+  type: FETCH_CATEGORIES,
+  payload,
+});
+
+export const configOptions = (payload) => ({
+  type: CONFIG_OPTIONS,
+  payload,
+});
+
 export const fetchToken = () => async (dispatch) => {
   const response = await fetch('https://opentdb.com/api_token.php?command=request');
   const data = await response.json();
   return dispatch(token(data));
 };
 
-export const fetchAPI = (tokenKey) => async (dispatch) => {
+export const fetchAPI = (tokenKey, config) => async (dispatch) => {
   dispatch(loading(true));
   try {
-    const questionsResponse = await fetch(`https://opentdb.com/api.php?amount=5&token=${tokenKey}`);
+    const questionsResponse = await fetch(getFetchURL(tokenKey, config));
     const data = await questionsResponse.json();
     const updatedData = data.results.map((question) => {
       const allAnswers = [...question.incorrect_answers, question.correct_answer];
@@ -71,9 +84,14 @@ export const fetchAPI = (tokenKey) => async (dispatch) => {
       const updatedItem = { ...question, shuffledAnswers };
       return updatedItem;
     });
-    console.log(updatedData);
     dispatch(successAPIFetch(updatedData));
   } catch (error) {
     dispatch(failedAPIFetch(error));
   }
+};
+
+export const fetchCategories = () => async (dispatch) => {
+  const categories = await fetch('https://opentdb.com/api_category.php');
+  const response = await categories.json();
+  return dispatch(fetchCategoriesAction(response));
 };

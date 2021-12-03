@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import RedirectButton from '../components/RedirectButton';
 import { createRankingInLocalStore } from '../helpers/createLocalStorage';
-import trophy from '../assets/trophy.png';
-import sadEmoji from '../assets/sadface.png';
+// import trophy from '../assets/trophy.png';
+import welldone from '../assets/welldone.gif';
+// import sadEmoji from '../assets/sadface.png';
+import facepalm from '../assets/facepalm.gif';
 
 class Feedback extends Component {
   constructor() {
@@ -40,7 +42,7 @@ class Feedback extends Component {
   getFeedbackImage() {
     const assertions = this.getAssertions();
     const MIN_ASSERTIONS = 3;
-    return assertions < MIN_ASSERTIONS ? sadEmoji : trophy;
+    return assertions < MIN_ASSERTIONS ? facepalm : welldone;
   }
 
   render() {

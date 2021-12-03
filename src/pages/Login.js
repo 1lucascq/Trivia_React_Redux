@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import logo from '../trivia.png';
 import '../App.css';
-import { fetchToken, login as loginAction } from '../redux/actions';
+import { fetchCategories, fetchToken, login as loginAction } from '../redux/actions';
 import UserInputs from '../components/UserInputs';
 
 class Login extends Component {
@@ -20,6 +20,11 @@ class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.enableBtn = this.enableBtn.bind(this);
     this.redirectToConfig = this.redirectToConfig.bind(this);
+  }
+
+  componentDidMount() {
+    const { categoriesFetch } = this.props;
+    categoriesFetch();
   }
 
   redirectToConfig() {
@@ -105,6 +110,7 @@ Login.propTypes = {
   logged: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
   tokenToStore: PropTypes.func.isRequired,
+  categoriesFetch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -114,6 +120,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   login: (name, email) => dispatch(loginAction({ name, email })),
   tokenToStore: () => dispatch(fetchToken()),
+  categoriesFetch: () => dispatch(fetchCategories()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

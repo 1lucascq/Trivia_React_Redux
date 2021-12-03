@@ -44,12 +44,14 @@ class Game extends Component {
   async getTokenFromStateOrLS() {
     const { fetchAPIAction } = this.props;
     const { token } = this.props;
+    const { configOptions } = this.props;
+
     if (token) {
-      fetchAPIAction(token);
+      fetchAPIAction(token, configOptions);
     } else {
       const tokenFromLocalStorage = (key) => JSON.parse(localStorage.getItem(key));
       const tokenLS = tokenFromLocalStorage('token');
-      fetchAPIAction(tokenLS);
+      fetchAPIAction(tokenLS, configOptions);
     }
   }
 
@@ -140,7 +142,6 @@ class Game extends Component {
   render() {
     const { isLoading, data } = this.props;
     const { answerTimeSeconds, timeIsOver, showNextButton, qIndex } = this.state;
-    console.log(data);
     return (
       <>
         <Header />
@@ -189,6 +190,7 @@ class Game extends Component {
 
 Game.propTypes = {
   data: PropTypes.objectOf(PropTypes.object).isRequired,
+  configOptions: PropTypes.objectOf(PropTypes.object).isRequired,
   fetchAPIAction: PropTypes.func.isRequired,
   token: PropTypes.string.isRequired,
   player: PropTypes.objectOf(PropTypes.object).isRequired,
@@ -204,10 +206,11 @@ const mapStateToProps = (state) => ({
   token: state.tokenReducer.token.token,
   data: state.gameData.data,
   player: state.gameData.player,
+  configOptions: state.configReducer.configOptions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchAPIAction: (token) => dispatch(fetchAPI(token)),
+  fetchAPIAction: (token, config) => dispatch(fetchAPI(token, config)),
   updatePlayerInfo: (player) => dispatch(playerAction(player)),
 });
 
