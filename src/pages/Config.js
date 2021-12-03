@@ -3,8 +3,6 @@ import DifficultySelect from '../components/ConfigInputs/DifficultiesSelect';
 import TypesSelect from '../components/ConfigInputs/TypesSelect';
 import ConfigContext from '../context/ConfigContext';
 import CategoriesSelect from '../components/ConfigInputs/CategoriesSelect';
-// import { renderCategories, renderDifficulties,
-//   renderTypes } from '../helpers/renderInputsInConfig';
 
 function Config() {
   const {
@@ -20,7 +18,7 @@ function Config() {
   } = useContext(ConfigContext);
   return (
     <section className="config">
-      <h1 className="text-center display-3">Configurações</h1>
+      <h1 className="text-center display-3 py-3">Configurações</h1>
 
       <div className="wrapper">
         <form className="form form-control form-login" onSubmit={ handleSubmit }>

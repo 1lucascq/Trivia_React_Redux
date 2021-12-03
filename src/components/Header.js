@@ -16,7 +16,8 @@ class Header extends Component {
     const { name, score, gravatarImage, history } = this.props;
     return (
       <header
-        className="container d-flex justify-content-between align-items-center py-3"
+        className="bg-info
+        text-white container-fluid d-flex justify-content-between align-items-center py-3"
       >
         <div className="d-flex flex-direction-row align-items-center">
           <img
@@ -25,11 +26,14 @@ class Header extends Component {
             src={ gravatarImage }
             alt="Player Gravatar"
           />
-          <h2 className="navbar-text" data-testid="header-player-name">{ name }</h2>
+          <h2 className="navbar-text " data-testid="header-player-name">{ name }</h2>
         </div>
 
-        { this.checkPathname(history) ? ''
-          : <h2 data-testid="navbar-text">{ `Score: ${score}` }</h2>}
+        { this.checkPathname(history) ? '' : <h2 data-testid="navbar-text">
+          {' '}
+          { `Score: ${score}` }
+          {' '}
+        </h2>}
 
         <Link className="navbar-brand text-danger h1" to="/">Sair</Link>
       </header>

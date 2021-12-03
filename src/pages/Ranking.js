@@ -47,7 +47,7 @@ class Ranking extends React.Component {
     const state = this.orderRanking();
     return (
       <div className="ranking-div">
-        <h1 className="text-center" data-testid="ranking-title">Ranking</h1>
+        <h1 className="text-center bg-info py-3" data-testid="ranking-title">Ranking</h1>
         <ul
           className="list-group d-flex mx-auto container rank-ul"
         >

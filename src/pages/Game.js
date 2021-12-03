@@ -7,6 +7,7 @@ import Loading from '../components/Loading';
 import { player as playerAction, fetchAPI } from '../redux/actions';
 import createInitialLocalStorage from '../helpers/createLocalStorage';
 import Buttons from '../components/Buttons';
+import '../Game.css';
 
 class Game extends Component {
   constructor() {
@@ -158,7 +159,7 @@ class Game extends Component {
             </h3>
             <ol className="list-group list-unstyled">
               {data[qIndex].shuffledAnswers.map(({ correct, id, name }) => (
-                <li key={ id }>
+                <li key={ id } className={ timeIsOver ? 'blink_me' : '' }>
                   <Buttons
                     disabled={ timeIsOver }
                     testId={ correct ? 'correct-answer' : `wrong-answer-${id}` }
