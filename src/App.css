@@ -75,6 +75,10 @@
 .App-link {
   color: #61dafb;
 }
+.bg-fundo {
+  background: #282C35;
+  color: #ffffff;
+}
 
 @keyframes shake {
 

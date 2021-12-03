@@ -16,7 +16,7 @@ class Header extends Component {
     const { name, score, gravatarImage, history } = this.props;
     return (
       <header
-        className="bg-info
+        className="bg-fundo
         text-white container-fluid d-flex justify-content-between align-items-center py-3"
       >
         <div className="d-flex flex-direction-row align-items-center">
