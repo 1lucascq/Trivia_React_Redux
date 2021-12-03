@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import RedirectButton from '../components/RedirectButton';
 import { createRankingInLocalStore } from '../helpers/createLocalStorage';
 // import trophy from '../assets/trophy.png';
-import welldone from '../assets/welldone.gif';
+import wellDone from '../assets/welldone.gif';
 // import sadEmoji from '../assets/sadface.png';
 import facepalm from '../assets/facepalm.gif';
 
@@ -42,7 +42,7 @@ class Feedback extends Component {
   getFeedbackImage() {
     const assertions = this.getAssertions();
     const MIN_ASSERTIONS = 3;
-    return assertions < MIN_ASSERTIONS ? facepalm : welldone;
+    return assertions < MIN_ASSERTIONS ? facepalm : wellDone;
   }
 
   render() {
@@ -66,7 +66,6 @@ class Feedback extends Component {
             data-testid="feedback-total-score"
           >
             {`Pontuação: ${this.getScore()}`}
-
           </h2>
           <h2
             className="text-center"
@@ -74,20 +73,23 @@ class Feedback extends Component {
           >
             {`Acertos: ${this.getAssertions()}`}
           </h2>
-          <RedirectButton
-            className="btn btn-success bnt-login mb-2"
-            history={ history }
-            name="Jogar novamente"
-            testId="btn-play-again"
-            url="/"
-          />
-          <RedirectButton
-            className="btn btn-info bnt-login"
-            history={ history }
-            name="Ver Ranking"
-            testId="btn-ranking"
-            url="/ranking"
-          />
+
+          <div className="feedback-position-buttons">
+            <RedirectButton
+              className="btn btn-success bnt-login mt-3 play-again-btn"
+              history={ history }
+              name="Jogar novamente"
+              testId="btn-play-again"
+              url="/"
+            />
+            <RedirectButton
+              className="btn btn-info bnt-login mt-3"
+              history={ history }
+              name="Ver Ranking"
+              testId="btn-ranking"
+              url="/ranking"
+            />
+          </div>
 
         </div>
       </>
