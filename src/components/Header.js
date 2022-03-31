@@ -6,7 +6,9 @@ import { Link } from 'react-router-dom';
 class Header extends Component {
   checkPathname(history) {
     if (history) {
-      const { location: { pathname } } = history;
+      const {
+        location: { pathname },
+      } = history;
       if (pathname === '/feedback') return true;
     }
     return false;
@@ -26,16 +28,24 @@ class Header extends Component {
             src={ gravatarImage }
             alt="Player Gravatar"
           />
-          <h2 className="navbar-text " data-testid="header-player-name">{ name }</h2>
+          <h2 className="navbar-text " data-testid="header-player-name">
+            {name}
+          </h2>
         </div>
 
-        { this.checkPathname(history) ? '' : <h2 data-testid="navbar-text">
-          {' '}
-          { `Score: ${score}` }
-          {' '}
-        </h2>}
+        {this.checkPathname(history) ? (
+          ''
+        ) : (
+          <h2 className="text-center">
+            {' '}
+            {`Score: ${score}`}
+            {' '}
+          </h2>
+        )}
 
-        <Link className="navbar-brand text-danger h1" to="/">Sair</Link>
+        <Link className="navbar-brand text-warning h1" to="/">
+          Sair
+        </Link>
       </header>
     );
   }
