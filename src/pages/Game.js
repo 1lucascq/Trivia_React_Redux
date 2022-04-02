@@ -29,7 +29,6 @@ class Game extends Component {
 
   async componentDidMount() {
     await this.getTokenFromStateOrLS();
-    console.log('DidMount');
     this.startAnswerTimer();
     createInitialLocalStorage(this.props);
   }
@@ -148,7 +147,7 @@ class Game extends Component {
         clearInterval(this.intervalID);
       });
     } else {
-      this.setState({ answerTimeSeconds: 0, timeIsOver: true }, () => {
+      this.setState({ showNextButton: true, answerTimeSeconds: 0, timeIsOver: true }, () => {
         clearInterval(this.intervalID);
       });
     }
@@ -157,9 +156,7 @@ class Game extends Component {
 
   render() {
     const { isLoading, data } = this.props;
-    const { answerTimeSeconds, timeIsOver, userAlreadyAnswered, showNextButton, qIndex } = this.state;
-    console.log('render', answerTimeSeconds);
-    console.log('render: UserALreadyAnswr', userAlreadyAnswered);
+    const { answerTimeSeconds, timeIsOver, showNextButton, qIndex } = this.state;
 
     return (
       <>
