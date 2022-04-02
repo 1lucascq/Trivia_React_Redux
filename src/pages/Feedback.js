@@ -103,8 +103,8 @@ const mapStateToProps = (state) => ({
 });
 
 Feedback.propTypes = {
-  history: PropTypes.shape(PropTypes.object).isRequired,
-  login: PropTypes.objectOf(PropTypes.object).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  login: PropTypes.objectOf(PropTypes.any).isRequired,
   score: PropTypes.number.isRequired,
 };
 

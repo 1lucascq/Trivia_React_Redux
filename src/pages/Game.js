@@ -1,13 +1,13 @@
 /* eslint-disable max-len */
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import Buttons from '../components/Buttons';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
-import { player as playerAction, fetchAPI } from '../redux/actions';
-import createInitialLocalStorage from '../helpers/createLocalStorage';
-import Buttons from '../components/Buttons';
 import '../Game.css';
+import createInitialLocalStorage from '../helpers/createLocalStorage';
+import { fetchAPI, player as playerAction } from '../redux/actions';
 
 class Game extends Component {
   constructor() {
@@ -18,8 +18,8 @@ class Game extends Component {
       timeIsOver: false,
       showNextButton: false,
       qIndex: 0,
+      userAlreadyAnswered: false,
     };
-
     this.getTokenFromStateOrLS = this.getTokenFromStateOrLS.bind(this);
     this.startAnswerTimer = this.startAnswerTimer.bind(this);
     this.stopAnswerTimer = this.stopAnswerTimer.bind(this);
@@ -28,29 +28,23 @@ class Game extends Component {
   }
 
   async componentDidMount() {
-    console.log('didUpdate: ', this.showNextButton);
-
     await this.getTokenFromStateOrLS();
+    console.log('DidMount');
     this.startAnswerTimer();
     createInitialLocalStorage(this.props);
   }
 
   componentDidUpdate() {
-    console.log('didUpdate: ', this.showNextButton);
+    const { answerTimeSeconds, userAlreadyAnswered } = this.state;
 
-    if (!this.showNextButton) {
-      const { answerTimeSeconds } = this.state;
-      const TIME_LIMIT = -1;
-      if (answerTimeSeconds === TIME_LIMIT) {
-        this.stopAnswerTimer();
-      }
+    const TIME_LIMIT = -1;
+    if (answerTimeSeconds === TIME_LIMIT || userAlreadyAnswered) {
+      this.stopAnswerTimer();
     }
   }
 
   async getTokenFromStateOrLS() {
-    const { fetchAPIAction } = this.props;
-    const { token } = this.props;
-    const { configOptions } = this.props;
+    const { token, fetchAPIAction, configOptions } = this.props;
 
     if (token) {
       fetchAPIAction(token, configOptions);
@@ -87,8 +81,11 @@ class Game extends Component {
   // Se o resultado for > 0, a ordem será incrementada, se for < 0, será decrementada.
 
   enableNextQuestionButton() {
-    this.setState({ showNextButton: true });
-    this.setState({ timeIsOver: true });
+    this.setState({
+      userAlreadyAnswered: true,
+      showNextButton: true,
+      timeIsOver: true,
+    });
   }
 
   goToNextQuestion() {
@@ -96,11 +93,15 @@ class Game extends Component {
     const { history } = this.props;
     const MAX_QUESTION_NUMBER = 4;
     if (qIndex < MAX_QUESTION_NUMBER) {
-      return this.setState((prevState) => ({
+      this.setState((prevState) => ({
         qIndex: prevState.qIndex + 1,
         answerTimeSeconds: 30,
         timeIsOver: false,
+        showNextButton: false,
+        userAlreadyAnswered: false,
       }));
+      this.startAnswerTimer();
+      return;
     }
     history.push('/feedback');
   }
@@ -140,14 +141,26 @@ class Game extends Component {
   }
 
   stopAnswerTimer() {
-    this.setState({ answerTimeSeconds: 0, timeIsOver: true }, () => {
-      clearInterval(this.intervalID);
-    });
+    const { userAlreadyAnswered, answerTimeSeconds } = this.state;
+    console.log('stopAnswerTimer', answerTimeSeconds, userAlreadyAnswered);
+    if (userAlreadyAnswered) {
+      this.setState({ timeIsOver: true }, () => {
+        clearInterval(this.intervalID);
+      });
+    } else {
+      this.setState({ answerTimeSeconds: 0, timeIsOver: true }, () => {
+        clearInterval(this.intervalID);
+      });
+    }
+    this.setState({ userAlreadyAnswered: false });
   }
 
   render() {
     const { isLoading, data } = this.props;
-    const { answerTimeSeconds, timeIsOver, showNextButton, qIndex } = this.state;
+    const { answerTimeSeconds, timeIsOver, userAlreadyAnswered, showNextButton, qIndex } = this.state;
+    console.log('render', answerTimeSeconds);
+    console.log('render: UserALreadyAnswr', userAlreadyAnswered);
+
     return (
       <>
         <Header />
@@ -175,8 +188,7 @@ class Game extends Component {
                       timeIsOver && '3px solid rgb(6, 240, 15)' }
                       : { border: timeIsOver && '3px solid rgb(255, 0, 0)' } }
                   />
-                </li>
-              ))}
+                </li>))}
             </ol>
             {showNextButton
               && <Buttons

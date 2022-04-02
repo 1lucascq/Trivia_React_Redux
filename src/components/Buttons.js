@@ -20,9 +20,14 @@ export default class Buttons extends Component {
 }
 
 Buttons.propTypes = {
-  disabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
   testId: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  style: PropTypes.shape(PropTypes.object.isRequired).isRequired,
+  style: PropTypes.shape(PropTypes.object.isRequired),
+};
+
+Buttons.defaultProps = {
+  disabled: undefined,
+  style: undefined,
 };
