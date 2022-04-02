@@ -55,7 +55,11 @@ Header.propTypes = {
   gravatarImage: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
-  history: PropTypes.objectOf(PropTypes.object).isRequired,
+  history: PropTypes.objectOf(PropTypes.any),
+};
+
+Header.defaultProps = {
+  history: undefined,
 };
 
 const mapStateToProps = (state) => ({

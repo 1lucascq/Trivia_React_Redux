@@ -61,9 +61,13 @@ export const configOptions = (payload) => ({
 });
 
 export const fetchToken = () => async (dispatch) => {
-  const response = await fetch('https://opentdb.com/api_token.php?command=request');
-  const data = await response.json();
-  return dispatch(token(data));
+  try {
+    const response = await fetch('https://opentdb.com/api_token.php?command=request');
+    const data = await response.json();
+    return dispatch(token(data));
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 export const fetchAPI = (tokenKey, config) => async (dispatch) => {
@@ -91,7 +95,11 @@ export const fetchAPI = (tokenKey, config) => async (dispatch) => {
 };
 
 export const fetchCategories = () => async (dispatch) => {
-  const categories = await fetch('https://opentdb.com/api_category.php');
-  const response = await categories.json();
-  return dispatch(fetchCategoriesAction(response));
+  try {
+    const categories = await fetch('https://opentdb.com/api_category.php');
+    const response = await categories.json();
+    return dispatch(fetchCategoriesAction(response));
+  } catch (error) {
+    console.log(error.message);
+  }
 };

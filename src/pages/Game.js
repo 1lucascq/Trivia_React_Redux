@@ -28,17 +28,22 @@ class Game extends Component {
   }
 
   async componentDidMount() {
+    console.log('didUpdate: ', this.showNextButton);
+
     await this.getTokenFromStateOrLS();
     this.startAnswerTimer();
     createInitialLocalStorage(this.props);
   }
 
   componentDidUpdate() {
-    const { answerTimeSeconds } = this.state;
-    const TIME_LIMIT = -1;
+    console.log('didUpdate: ', this.showNextButton);
 
-    if (answerTimeSeconds === TIME_LIMIT) {
-      this.stopAnswerTimer();
+    if (!this.showNextButton) {
+      const { answerTimeSeconds } = this.state;
+      const TIME_LIMIT = -1;
+      if (answerTimeSeconds === TIME_LIMIT) {
+        this.stopAnswerTimer();
+      }
     }
   }
 
@@ -190,15 +195,20 @@ class Game extends Component {
 }
 
 Game.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
-  configOptions: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  configOptions: PropTypes.objectOf(PropTypes.string).isRequired,
   fetchAPIAction: PropTypes.func.isRequired,
-  token: PropTypes.string.isRequired,
-  player: PropTypes.objectOf(PropTypes.object).isRequired,
+  token: PropTypes.string,
+  player: PropTypes.objectOf(PropTypes.any).isRequired,
   updatePlayerInfo: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  login: PropTypes.objectOf(PropTypes.object).isRequired,
-  history: PropTypes.objectOf(PropTypes.object).isRequired,
+  login: PropTypes.objectOf(PropTypes.any).isRequired,
+  history: PropTypes.objectOf(PropTypes.any),
+};
+
+Game.defaultProps = {
+  token: undefined,
+  history: undefined,
 };
 
 const mapStateToProps = (state) => ({

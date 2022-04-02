@@ -108,6 +108,7 @@
 .feedback-image {
   display: flex;
   margin: auto;
+  margin-top: 3em;
   width: 30%;
 }
 

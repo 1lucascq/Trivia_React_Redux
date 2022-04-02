@@ -14,7 +14,6 @@ class Ranking extends React.Component {
     if (ranking.length > 0) {
       ranking.sort((a, b) => b.score - a.score);
     }
-    console.log(ranking);
     return ranking;
   }
 

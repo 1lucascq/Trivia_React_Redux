@@ -1,6 +1,4 @@
 export default function getFetchURL(token, config) {
-  console.log('getFetchURL config', config);
-
   if (!config) return `https://opentdb.com/api.php?amount=5&token=${token}`;
 
   const { type, category, difficulty } = config;
@@ -12,6 +10,5 @@ export default function getFetchURL(token, config) {
   if (type) url.push('&type=', type);
   url.push('&token=', token);
 
-  console.log(url.join(''));
   return url.join('');
 }
