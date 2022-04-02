@@ -163,15 +163,19 @@ class Game extends Component {
         <Header />
         { data.length && (
           <div className="container mt-5">
-            <h1 data-testid="question-category">{data[qIndex].category}</h1>
-            <h2
-              data-testid="question-text"
-              className="text-center"
+            <div className="d-flex justify-content-center align-items-center">
+              <div className="category-title bg-dark text-white">
+                <h3>{data[qIndex].category}</h3>
+              </div>
+
+            </div>
+            <h5
+              className="text-center "
               dangerouslySetInnerHTML={ this.getCleanText(data[qIndex].question) }
             />
-            <h3 className="my-4 text-center">
+            <h5 className="my-4 text-center">
               {`Tempo restante: ${answerTimeSeconds} segundos`}
-            </h3>
+            </h5>
             <ol className="list-group list-unstyled">
               {data[qIndex].shuffledAnswers.map(({ correct, id, name }) => (
                 <li key={ id } className={ timeIsOver ? 'blink_me' : '' }>
@@ -193,9 +197,6 @@ class Game extends Component {
                 text="Próxima"
                 onClick={ this.goToNextQuestion }
               />}
-            <h4 className="text-center mt-5" data-testid="question-category">
-              {data[qIndex].category}
-            </h4>
           </div>)}
         {isLoading && <Loading />}
       </>

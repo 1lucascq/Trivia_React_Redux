@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import defaultGravatar from '../assets/gravatar-default.jpg';
 
 class Header extends Component {
   checkPathname(history) {
@@ -21,16 +22,16 @@ class Header extends Component {
         className="bg-fundo
         text-white container-fluid d-flex justify-content-between align-items-center py-3"
       >
-        <div className="d-flex flex-direction-row align-items-center">
+        <div className="name-in-header d-flex flex-direction-row align-items-center">
           <img
-            className="rounded-circle me-2"
+            className="gravatar-logo rounded-circle me-2"
             data-testid="header-profile-picture"
-            src={ gravatarImage }
+            src={ gravatarImage || defaultGravatar }
             alt="Player Gravatar"
           />
-          <h2 className="navbar-text " data-testid="header-player-name">
+          <h4 className="navbar-text " data-testid="header-player-name">
             {name}
-          </h2>
+          </h4>
         </div>
 
         {this.checkPathname(history) ? (
@@ -43,7 +44,7 @@ class Header extends Component {
           </h2>
         )}
 
-        <Link className="navbar-brand text-warning h1" to="/">
+        <Link className="exit-in-header navbar-brand text-warning h1" to="/">
           Sair
         </Link>
       </header>

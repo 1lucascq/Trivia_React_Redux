@@ -112,6 +112,28 @@
   width: 30%;
 }
 
+.category-title {
+  padding: 0.6em 0.9em 0.4em 0.9em;
+  display: inline-block;
+  border-radius: 100em;
+  margin: 0 auto 1em auto;;
+}
+
+.gravatar-logo {
+  width: 2.2em;
+  height: 2.2em;
+  margin-bottom: 0.5em;
+}
+
+.name-in-header {
+  width: 30%;
+}
+
+.exit-in-header {
+  width: 30%;
+  text-align: end;
+}
+
 .rank-div {
   display: flex;
   justify-content: center;
@@ -148,11 +170,6 @@
   margin: 0;
   min-height: 100vh;
 }
-
-/* h1 > config {
-  padding: 2rem;
-}
- */
 
 .play-again-btn {
   font-size: 1.1rem;

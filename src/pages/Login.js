@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import logo from '../trivia.png';
+import logo from '../assets/trivia.png';
 import '../App.css';
 import { fetchCategories, fetchToken, login as loginAction } from '../redux/actions';
 import UserInputs from '../components/UserInputs';
