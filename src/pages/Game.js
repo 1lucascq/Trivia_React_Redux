@@ -140,8 +140,7 @@ class Game extends Component {
   }
 
   stopAnswerTimer() {
-    const { userAlreadyAnswered, answerTimeSeconds } = this.state;
-    console.log('stopAnswerTimer', answerTimeSeconds, userAlreadyAnswered);
+    const { userAlreadyAnswered } = this.state;
     if (userAlreadyAnswered) {
       this.setState({ timeIsOver: true }, () => {
         clearInterval(this.intervalID);

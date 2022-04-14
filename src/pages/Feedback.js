@@ -4,9 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import RedirectButton from '../components/RedirectButton';
 import { createRankingInLocalStore } from '../helpers/createLocalStorage';
-// import trophy from '../assets/trophy.png';
 import wellDone from '../assets/welldone.gif';
-// import sadEmoji from '../assets/sadface.png';
 import facepalm from '../assets/facepalm.gif';
 
 class Feedback extends Component {

@@ -6,7 +6,8 @@ export default class Buttons extends Component {
     const { disabled, testId, text, onClick, style } = this.props;
     return (
       <button
-        className="btn btn-light w-50 my-2 mx-auto list-group-item rounded-pill"
+        className="btn btn-light text-light w-50
+        my-2 mx-auto list-group-item rounded-pill bg-dark"
         disabled={ disabled }
         type="button"
         data-testid={ testId }

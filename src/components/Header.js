@@ -3,8 +3,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import defaultGravatar from '../assets/gravatar-default.jpg';
+import { resetState } from '../redux/actions';
 
 class Header extends Component {
+  constructor() {
+    super();
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
   checkPathname(history) {
     if (history) {
       const {
@@ -13,6 +19,11 @@ class Header extends Component {
       if (pathname === '/feedback') return true;
     }
     return false;
+  }
+
+  handleLogout() {
+    const { logout } = this.props;
+    logout();
   }
 
   render() {
@@ -44,7 +55,11 @@ class Header extends Component {
           </h2>
         )}
 
-        <Link className="exit-in-header navbar-brand text-warning h1" to="/">
+        <Link
+          className="exit-in-header navbar-brand text-warning h1"
+          onClick={ this.handleLogout }
+          to={ { pathname: '/' } }
+        >
           Sair
         </Link>
       </header>
@@ -54,6 +69,7 @@ class Header extends Component {
 
 Header.propTypes = {
   gravatarImage: PropTypes.string.isRequired,
+  logout: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
   history: PropTypes.objectOf(PropTypes.any),
@@ -69,4 +85,8 @@ const mapStateToProps = (state) => ({
   gravatarImage: state.login.gravatarImage,
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => dispatch(resetState()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

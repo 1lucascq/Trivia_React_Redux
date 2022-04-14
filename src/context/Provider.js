@@ -1,5 +1,3 @@
-// src/context/Provider.js
-
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
@@ -16,7 +14,6 @@ function Provider({ children, categories, configFetchOptions }) {
   function handleSubmit(e) {
     e.preventDefault();
     const options = { category, difficulty, type };
-    console.log(options);
     configFetchOptions(options);
     history.push('/');
   }
@@ -51,7 +48,5 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = { configFetchOptions: configOptions };
-
-// PEGAR esses dados que eu mandei e fazer a renderização conforme na hora do fetch
 
 export default connect(mapStateToProps, mapDispatchToProps)(Provider);
